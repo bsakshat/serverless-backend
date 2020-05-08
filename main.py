@@ -51,7 +51,7 @@ def get(event):
 def add(event):
     data = event['body']
     
-    data['StudentId'] = int(uuid.uuid4()) % 100
+    data['StudentId'] = int(uuid.uuid1()) % 100
     
     table.put_item(Item=data)
     
@@ -69,5 +69,6 @@ def getAll(event):
     ids = list(map(lambda datum: str(datum['StudentId']), result['Items']))
     
     #response = json.dumps(ids, cls=decimalencoder.DecimalEncoder)
-    
+    #response = [int(x) for x in ids]
+    #response.sort()
     return ids
